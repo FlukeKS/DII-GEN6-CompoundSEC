@@ -1,50 +1,34 @@
-// คลาสแม่ของบัตรผ่าน
-abstract class AccessCard {
-    protected String cardID;
+import java.time.LocalDateTime;
+import java.util.List;
 
-    public AccessCard(String cardID) {
-        this.cardID = cardID;
+public class AccessCard {
+    private String cardId;
+    private LocalDateTime expiryDate;
+    private List<String> accessLevels;
+
+    public AccessCard(String cardId, LocalDateTime expiryDate, List<String> accessLevels) {
+        this.cardId = cardId;
+        this.expiryDate = expiryDate;
+        this.accessLevels = accessLevels;
     }
 
-    public abstract boolean hasAccess(String zone);
-
-    public String getCardID() {
-        return cardID;
-    }
-}
-
-// บัตรแขก
-class GuestCard extends AccessCard {
-    public GuestCard(String cardID) {
-        super(cardID);
+    public String getCardId() {
+        return cardId;
     }
 
-    @Override
-    public boolean hasAccess(String zone) {
-        return zone.equals("Guest Room") || zone.equals("Public Zone");
-    }
-}
-
-// บัตรพนักงาน
-class StaffCard extends AccessCard {
-    public StaffCard(String cardID) {
-        super(cardID);
+    public LocalDateTime getExpiryDate() {
+        return expiryDate;
     }
 
-    @Override
-    public boolean hasAccess(String zone) {
-        return zone.equals("Staff Area") || zone.equals("Public Zone");
-    }
-}
-
-// บัตรผู้ดูแลระบบ (เข้าถึงทุกพื้นที่)
-class AdminCard extends AccessCard {
-    public AdminCard(String cardID) {
-        super(cardID);
+    public void setExpiryDate(LocalDateTime expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
-    @Override
-    public boolean hasAccess(String zone) {
-        return true; // Admin เข้าถึงทุกพื้นที่
+    public List<String> getAccessLevels() {
+        return accessLevels;
+    }
+
+    public void setAccessLevels(List<String> accessLevels) {
+        this.accessLevels = accessLevels;
     }
 }
