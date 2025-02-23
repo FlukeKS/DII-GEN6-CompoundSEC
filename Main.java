@@ -1,37 +1,21 @@
-import javax.swing.*;
-
-abstract class Animal {
-    String name;
-    Animal(String name) {
-        this.name = name;
-    }
-    abstract void makeSound();
-}
-interface Flyable {
-    void fly();
-}
-class Bird extends Animal implements Flyable {
-    Bird(String name) {
-        super(name);
-    }
-    @Override
-    void makeSound() {
-        System.out.println(name + " chirps.");
-    }
-    @Override
-    public void fly() {
-        System.out.println(name + " is flying.");
-    }
-}
 public class Main {
-    public static void main (String[] args) {
-        /*JFrame frame = new JFrame();
-        frame.setSize(500,300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);*/
+    public static void main(String[] args) {
 
-        Bird bird = new Bird("Parrot");
-        bird.makeSound();
-        bird.fly();
+        // สร้างระบบควบคุมการเข้าถึง
+        AccessControl system = new AccessControl();
+
+        // เพิ่ม Observer (ระบบบันทึกและแจ้งเตือน)
+        system.addObserver(new AuditLogger());
+        system.addObserver(new SecurityAlert());
+
+        // สร้างบัตรผ่านจาก Factory
+        AccessCard guest = CardFactory.createCard("Guest", "GUEST-001");
+        AccessCard staff = CardFactory.createCard("Staff", "STAFF-002");
+        AccessCard admin = CardFactory.createCard("Admin", "ADMIN-003");
+
+        // ทดสอบการใช้งานบัตร
+        system.accessAttempt(guest, "Staff Room"); // ✅ เข้าได้
+        system.accessAttempt(staff, "Admin Room");
+        system.accessAttempt(admin, "Guest Room");
     }
 }
