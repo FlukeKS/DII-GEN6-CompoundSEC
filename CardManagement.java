@@ -34,7 +34,7 @@ public class CardManagement {
     // แสดงรายการบัตรทั้งหมด
     public static void showAllCards() {
         if (cardRegistry.isEmpty()) {
-            System.out.println("ไม่มีบัตรในระบบ!");
+            System.out.println("No Card in System!");
         } else {
             for (Map.Entry<String, AccessCard> entry : cardRegistry.entrySet()) {
                 AccessCard card = entry.getValue();

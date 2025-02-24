@@ -5,21 +5,21 @@ public class AccessControlSystem {
     // ตรวจสอบการเข้าถึง
     public static void verifyAccess(AccessCard card, String location, boolean isRoom) {
         if (card.getExpiryDate().isBefore(LocalDateTime.now())) {
-            System.out.println("❌ บัตรหมดอายุแล้ว!");
+            System.out.println("❌ The Card Expired!");
             return;
         }
 
         // ตรวจสอบการเข้าถึง
         if (card.getAccessLevels().contains(location)) {
             if (isRoom && location.startsWith("ROOM")) {
-                System.out.println("✅ เข้าถึงห้อง " + location + " ได้");
+                System.out.println("✅ Access to room " + location + " granted");
             } else if (!isRoom && location.startsWith("LOW")) {
-                System.out.println("✅ เข้าถึงชั้น " + location + " ได้");
+                System.out.println("✅ Access to floor " + location + " granted");
             } else {
-                System.out.println("❌ ไม่สามารถเข้าถึงที่นี้ได้");
+                System.out.println("❌ Access to this location is not allowed");
             }
         } else {
-            System.out.println("❌ บัตรนี้ไม่สามารถเข้าถึง " + location + " ได้");
+            System.out.println("❌ This card cannot access " + location);
         }
     }
 }

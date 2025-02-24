@@ -9,13 +9,13 @@ public class Main {
         boolean running = true;
 
         while (running) {
-            System.out.println("1. Add");
+            System.out.println("\n1. Add");
             System.out.println("2. Modify");
             System.out.println("3. Revoke");
-            System.out.println("4. Access Check");
-            System.out.println("5. Show All Card");
-            System.out.println("6. Exit");
-            System.out.print("Select (1-6): ");
+            System.out.println("4. Show All Card");
+//            System.out.println("5. Access Check");
+            System.out.println("5. Exit");
+            System.out.print("Select (1-5): ");
 
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -31,10 +31,10 @@ public class Main {
                     revokeCard(scanner);
                     break;
                 case 4:
-                    verifyAccess(scanner);
+                    showAllCards();
                     break;
                 case 5:
-                    showAllCards();
+                    verifyAccess(scanner);
                     break;
                 case 6:
                     running = false;
@@ -48,47 +48,47 @@ public class Main {
     }
 
     private static void addNewCard(Scanner scanner) {
-        System.out.print("🔹 Input ID Card: ");
+        System.out.print("🔹 Enter card ID: ");
         String cardId = scanner.nextLine();
 
-        System.out.print("🔹 The Day of Expired  (e.g. 30 Day input 30): ");
+        System.out.print("🔹 Set expiry date  (e.g., for 30 days, enter 30): ");
         int days = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("🔹 Select Access (Split with , e.g. LOW,ROOM101): ");
+        System.out.print("🔹 Access levels (Split with , e.g., LOW,ROOM101): ");
         String accessInput = scanner.nextLine();
         List<String> accessLevels = Arrays.asList(accessInput.split(","));
 
         CardManagement.addCard(cardId, LocalDateTime.now().plusDays(days), accessLevels);
-        System.out.println("✅ Add Card Success!");
+        System.out.println("✅ Card added successfully!");
     }
 
     private static void modifyCard(Scanner scanner) {
-        System.out.print("🔹 Input ID Card : ");
+        System.out.print("🔹 Enter card ID: ");
         String cardId = scanner.nextLine();
 
-        System.out.print("🔹 New Day of Expire (e.g. 60 Days Input 60): ");
+        System.out.print("🔹 Set new expiry date (e.g., for 60 days, enter 60): ");
         int days = scanner.nextInt();
         scanner.nextLine();
 
-        System.out.print("🔹 New Access (Split with , e.g. HIGH,ROOM202): ");
+        System.out.print("🔹 New access levels (Split with , e.g., HIGH,ROOM202): ");
         String accessInput = scanner.nextLine();
         List<String> newAccessLevels = Arrays.asList(accessInput.split(","));
 
         CardManagement.modifyCard(cardId, LocalDateTime.now().plusDays(days), newAccessLevels);
-        System.out.println("✅ Modify Success!");
+        System.out.println("✅ Card modified successfully!");
     }
 
     private static void revokeCard(Scanner scanner) {
-        System.out.print("🔹 Input ID Card: ");
+        System.out.print("🔹 Enter card ID: ");
         String cardId = scanner.nextLine();
 
         CardManagement.revokeCard(cardId);
-        System.out.println("✅ Revoke Success!");
+        System.out.println("✅ Card revoked successfully!");
     }
 
     private static void verifyAccess(Scanner scanner) {
-        System.out.print("🔹 Input ID Card: ");
+        System.out.print("🔹 Enter card ID: ");
         String cardId = scanner.nextLine();
         AccessCard card = CardManagement.getCard(cardId);
 
@@ -97,10 +97,10 @@ public class Main {
             return;
         }
 
-        System.out.print("🔹 Select Access (e.g. LOW or ROOM101): ");
+        System.out.print("🔹 Select access levels (e.g. LOW or ROOM101): ");
         String location = scanner.nextLine();
 
-        System.out.print("🔹 Is it room? (true = Room, false = Floor): ");
+        System.out.print("🔹 Is it room? (true = room, false = floor): ");
         boolean isRoom = scanner.nextBoolean();
         scanner.nextLine();
 
