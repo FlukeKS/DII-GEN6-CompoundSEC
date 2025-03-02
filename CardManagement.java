@@ -6,9 +6,18 @@ import java.util.Map;
 public class CardManagement {
     private static Map<String, AccessCard> cardRegistry = new HashMap<>();
 
+
+    // เพิ่ม method นี้เพื่อให้คลาสอื่นสามารถเข้าถึง cardRegistry ได้
+    public static Map<String, AccessCard> getCardRegistry() {
+        return cardRegistry;
+    }
     // เพิ่มบัตร
-    public static void addCard(String cardId, LocalDateTime expiryDate, List<String> accessLevels) {
-        AccessCard card = new AccessCard(cardId, expiryDate, accessLevels);
+    public static void addCard(String cardId, LocalDateTime expiryDate, List<String> accessLevels, AccessLevel level) {
+        if (cardRegistry.containsKey(cardId)) {
+            System.out.println("❌ Card ID already exists!");
+            return;
+        }
+        AccessCard card = new AccessCard(cardId, expiryDate, accessLevels, level);
         cardRegistry.put(cardId, card);
     }
 
