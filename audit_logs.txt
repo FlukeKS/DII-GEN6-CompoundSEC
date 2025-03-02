@@ -1,23 +1,7 @@
-2025-03-02 17:14:07 - Card Added - ID: FLUKE101
-2025-03-02 17:14:44 - Card Added - ID: FLUKE101
-2025-03-02 17:15:03 - Card Added - ID: FLUKE202
-2025-03-02 17:15:27 - Access Denied - Card: FLUKE202 tried LOW
-2025-03-02 17:15:48 - Access Denied - Card: FLUKE202 tried LOW
-2025-03-02 17:16:01 - Access Granted - Card: FLUKE202 to HIGH
-2025-03-02 17:16:21 - Access Granted - Card: FLUKE202 to HIGH
-2025-03-02 17:17:04 - Card Modified - ID: FLUkE202
-2025-03-02 17:34:58 - Card Added - ID: FLUKE101
-2025-03-02 17:35:07 - Access Attempt - Failed (Card Not Found) - ID: FLUKE
-2025-03-02 17:35:38 - Card Added - ID: FLUKE101
-2025-03-02 17:35:56 - Access Denied - Card: FLUKE101 tried MEDIUM
-2025-03-02 17:36:21 - Access Granted - Card: FLUKE101 to LOW
-2025-03-02 17:50:56 - Card Added - ID: FLUKE101
-2025-03-02 17:53:09 - Access Granted - Card: FLUKE101 to LOW
-2025-03-02 17:57:54 - Card Added - ID: FLUKE303
-2025-03-02 17:58:23 - Access Granted - Card: FLUKE303 to ROOM303
-2025-03-02 17:58:58 - Access Denied - Card: FLUKE303 tried ROOM101
-2025-03-02 17:59:17 - Access Denied - Card: FLUKE303 tried ROOM101
-2025-03-02 17:59:35 - Access Denied - Card: FLUKE101 (LOW) tried to access HIGH (HIGH)
-2025-03-02 18:04:25 - Card Added - ID: FLUKE101
-2025-03-02 18:04:55 - Access Granted - Card: FLUKE101 to ROOM101
-2025-03-02 18:05:06 - Access Denied - Card: FLUKE101 tried LOW
+2025-03-03 03:32:50 - Action: Card Added, Card ID: FLUKE111, Details: Expiry: 2025-03-04T03:32:50.555078200, Access Locations: [ROOM101, ROOM102], Level: HIGH, Valid From: 00:00, Valid To: 06:00
+2025-03-03 03:33:27 - Action: Card Added, Card ID: GLE333, Details: Expiry: 2025-03-05T03:33:27.213805100, Access Locations: [ROOM333, ROOM444], Level: MEDIUM, Valid From: 12:00, Valid To: 18:00
+2025-03-03 03:34:14 - Action: Access Denied, Card ID: FLUKE111, Details: Tried to access ROOM333
+2025-03-03 03:34:28 - Action: Access Granted, Card ID: FLUKE111, Details: Accessed ROOM101
+2025-03-03 03:35:06 - Action: Access Denied, Card ID: GLE333, Details: Card tried to access ROOM333 outside valid time
+2025-03-03 03:35:48 - Action: Card Revoked, Card ID: GLE333, Details: Card removed from system
+2025-03-03 03:37:13 - Action: Card Modified, Card ID: FLUKE111, Details: New Expiry: 2025-03-06T03:37:13.607282700, New Access Locations: [ROOM202], New Level: LOW, New Valid From: 05:00, New Valid To: 08:00

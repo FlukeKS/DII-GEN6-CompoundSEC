@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -7,34 +8,31 @@ import java.io.IOException;
 import java.util.*;
 
 class AccessControlSystem {
-    public static void verifyAccess(AccessCard card, String location, boolean isRoom) {
+    public static void verifyAccess(AccessCard card, String location) {
+        LocalTime currentTime = LocalTime.now();
+
+        // ตรวจสอบวันหมดอายุ
         if (card.getExpiryDate().isBefore(LocalDateTime.now())) {
-            System.out.println("❌ The Card Expired!");
-            AuditLogger.log("Access Denied - Expired Card: " + card.getCardId());
+            System.out.println("Access denied: Card expired");
+            AuditLogger.log("Access Denied", card.getCardId(), "Expired card tried to access " + location);
             return;
         }
 
-        AccessLevel requiredLevel = getLocationLevel(location);
-        if (card.getLevel().ordinal() < requiredLevel.ordinal()) {
-            System.out.println("❌ Access denied - Insufficient Level");
-            AuditLogger.log("Access Denied - Card: " + card.getCardId() + " (" + card.getLevel() + ") tried to access " + location + " (" + requiredLevel + ")");
+        // ตรวจสอบเวลาที่บัตรสามารถใช้งานได้
+        if (currentTime.isBefore(card.getValidFrom()) || currentTime.isAfter(card.getValidTo())) {
+            System.out.println("Access denied: Card is not valid at this time");
+            AuditLogger.log("Access Denied", card.getCardId(), "Card tried to access " + location + " outside valid time");
             return;
         }
 
-        if (card.getAccessLevels().contains(location)) {
-            String token = SecurityUtil.generateTimeBasedToken(card.getCardId());
-            System.out.println("🔑 Time-Based Token: " + token);
-            System.out.println("✅ Access granted to " + location);
-            AuditLogger.log("Access Granted - Card: " + card.getCardId() + " to " + location);
-        } else {
-            System.out.println("❌ Access denied to " + location);
-            AuditLogger.log("Access Denied - Card: " + card.getCardId() + " tried " + location);
+        // ตรวจสอบสิทธิ์การเข้าถึง
+        if (!card.getAccessLocations().contains(location)) {
+            System.out.println("Access denied: Insufficient access level");
+            AuditLogger.log("Access Denied", card.getCardId(), "Tried to access " + location);
+            return;
         }
-    }
 
-    private static AccessLevel getLocationLevel(String location) {
-        if (location.startsWith("HIGH")) return AccessLevel.HIGH;
-        if (location.startsWith("MEDIUM")) return AccessLevel.MEDIUM;
-        return AccessLevel.LOW;
+        System.out.println("Access granted to " + location);
+        AuditLogger.log("Access Granted", card.getCardId(), "Accessed " + location);
     }
 }

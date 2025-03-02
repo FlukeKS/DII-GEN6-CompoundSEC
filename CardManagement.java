@@ -1,54 +1,43 @@
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
-public class CardManagement {
+class CardManagement {
     private static Map<String, AccessCard> cardRegistry = new HashMap<>();
 
-
-    // เพิ่ม method นี้เพื่อให้คลาสอื่นสามารถเข้าถึง cardRegistry ได้
-    public static Map<String, AccessCard> getCardRegistry() {
-        return cardRegistry;
-    }
-    // เพิ่มบัตร
-    public static void addCard(String cardId, LocalDateTime expiryDate, List<String> accessLevels, AccessLevel level) {
-        if (cardRegistry.containsKey(cardId)) {
-            System.out.println("❌ Card ID already exists!");
-            return;
-        }
-        AccessCard card = new AccessCard(cardId, expiryDate, accessLevels, level);
+    public static void addCard(String cardId, LocalDateTime expiryDate, List<String> accessLocations, AccessLevel level, LocalTime validFrom, LocalTime validTo) {
+        AccessCard card = new AccessCard(cardId, expiryDate, accessLocations, level, validFrom, validTo);
         cardRegistry.put(cardId, card);
+        AuditLogger.log("Card Added", cardId, "Expiry: " + expiryDate + ", Access Locations: " + accessLocations + ", Level: " + level + ", Valid From: " + validFrom + ", Valid To: " + validTo);
     }
 
-    // แก้ไขบัตร
-    public static void modifyCard(String cardId, LocalDateTime newExpiryDate, List<String> newAccessLevels) {
+    public static void modifyCard(String cardId, LocalDateTime newExpiryDate, List<String> newAccessLocations, AccessLevel newLevel, LocalTime newValidFrom, LocalTime newValidTo) {
         AccessCard card = cardRegistry.get(cardId);
         if (card != null) {
             card.setExpiryDate(newExpiryDate);
-            card.setAccessLevels(newAccessLevels);
+            card.setAccessLocations(newAccessLocations);
+            card.setLevel(newLevel);
+            card.setValidFrom(newValidFrom);
+            card.setValidTo(newValidTo);
+            AuditLogger.log("Card Modified", cardId, "New Expiry: " + newExpiryDate + ", New Access Locations: " + newAccessLocations + ", New Level: " + newLevel + ", New Valid From: " + newValidFrom + ", New Valid To: " + newValidTo);
         }
     }
 
-    // เพิกถอนบัตร
     public static void revokeCard(String cardId) {
-        cardRegistry.remove(cardId);
+        AccessCard card = cardRegistry.remove(cardId);
+        if (card != null) {
+            AuditLogger.log("Card Revoked", cardId, "Card removed from system");
+        }
     }
 
-    // ค้นหาบัตร
     public static AccessCard getCard(String cardId) {
         return cardRegistry.get(cardId);
     }
 
-    // แสดงรายการบัตรทั้งหมด
-    public static void showAllCards() {
-        if (cardRegistry.isEmpty()) {
-            System.out.println("No Card in System!");
-        } else {
-            for (Map.Entry<String, AccessCard> entry : cardRegistry.entrySet()) {
-                AccessCard card = entry.getValue();
-                System.out.println("ID: " + card.getCardId() + " | Expiry: " + card.getExpiryDate() + " | Access Levels: " + card.getAccessLevels());
-            }
-        }
+    // เพิ่มเมธอด getCardRegistry เพื่อให้ Main สามารถดึงข้อมูล cardRegistry ได้
+    public static Map<String, AccessCard> getCardRegistry() {
+        return cardRegistry;
     }
 }
