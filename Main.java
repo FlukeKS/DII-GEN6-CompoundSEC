@@ -24,14 +24,14 @@ public class Main {
             System.out.print("Select (1-7): ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
                     addNewCard(scanner);
                     break;
                 case 2:
-                    modifyCard(scanner);  // เรียกใช้เมธอด modifyCard
+                    modifyCard(scanner);
                     break;
                 case 3:
                     revokeCard(scanner);
@@ -40,7 +40,7 @@ public class Main {
                     verifyAccess(scanner);
                     break;
                 case 5:
-                    viewLogs();  // เรียกใช้ฟังก์ชัน View Logs
+                    viewLogs();
                     break;
                 case 6:
                     showAllCards();
@@ -62,7 +62,7 @@ public class Main {
 
         System.out.print("Set expiry date (in days): ");
         int days = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        scanner.nextLine(); 
 
         System.out.print("Enter access locations (comma-separated): ");
         String[] locations = scanner.nextLine().split(",");
@@ -70,7 +70,7 @@ public class Main {
 
         System.out.print("Enter access level (1 = LOW, 2 = MEDIUM, 3 = HIGH): ");
         int level = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        scanner.nextLine(); 
 
         System.out.print("Enter valid from time (HH:mm): ");
         String validFromStr = scanner.nextLine();
@@ -99,7 +99,7 @@ public class Main {
         // รับวันหมดอายุใหม่
         System.out.print("Set new expiry date (in days): ");
         int days = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        scanner.nextLine(); 
 
         // รับพื้นที่เข้าถึงใหม่
         System.out.print("Enter new access locations (comma-separated): ");
@@ -109,7 +109,7 @@ public class Main {
         // รับระดับการเข้าถึงใหม่
         System.out.print("Enter new access level (1 = LOW, 2 = MEDIUM, 3 = HIGH): ");
         int level = scanner.nextInt();
-        scanner.nextLine();  // Consume newline
+        scanner.nextLine(); 
         AccessLevel newLevel = AccessLevel.values()[level - 1];
 
         // รับเวลาเริ่มต้นใหม่
